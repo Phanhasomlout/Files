@@ -100,6 +100,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="UserControls\UiHosts\MainWindowHostControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Assets\terminal\terminal.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -109,6 +112,9 @@
     <None Update="Resources\PropertiesInformation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="UserControls\UiHosts\MainWindowHostControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <PRIResource Include="Strings\fil-PH\Resources.resw" />
     <PRIResource Include="Strings\th-TH\Resources.resw" />
     <PRIResource Include="Strings\cs-CZ\Resources.resw" />
@@ -191,6 +197,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="WinUIEx" Version="1.8.0" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="..\Files.Package\Package.appxmanifest">

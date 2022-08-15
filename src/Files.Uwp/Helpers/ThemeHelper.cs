@@ -1,115 +1,100 @@
-using Files.Uwp.Extensions;
 using System;
-using Windows.Storage;
+using System.Collections.Generic;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Microsoft.UI.Xaml;
 using CommunityToolkit.WinUI;
-using Microsoft.UI;
+using Microsoft.UI.Dispatching;
+using Microsoft.UI.Windowing;
 
 namespace Files.Uwp.Helpers
-{
-    /// <summary>
-    /// Class providing functionality around switching and restoring theme settings
-    /// </summary>
-    public static class ThemeHelper
+{    
+    internal sealed class ThemeHelper
     {
-        private const string selectedAppThemeKey = "theme";
-        private static Window currentApplicationWindow;
-        private static ApplicationViewTitleBar titleBar;
+        private readonly AppWindow _appWindow;
+        private readonly UISettings _uiSettings;
+        private readonly DispatcherQueue _dispatcherQueue;
+        private readonly Dictionary<string, Action<ApplicationTheme>> _themeChangedCallbacks;
 
-        // Keep reference so it does not get optimized/garbage collected
-        public static UISettings UiSettings;
+        public static ApplicationTheme CurrentTheme { get; private set; } = Application.Current.RequestedTheme;
 
-        /// <summary>
-        /// Gets or sets (with LocalSettings persistence) the RequestedTheme of the root element.
-        /// </summary>
-        public static ElementTheme RootTheme
+        private static Dictionary<AppWindow, ThemeHelper> _ThemeHelpers { get; } = new();
+        public static IReadOnlyDictionary<AppWindow, ThemeHelper> ThemeHelpers
         {
-            get
-            {
-                var savedTheme = ApplicationData.Current.LocalSettings.Values[selectedAppThemeKey]?.ToString();
+            get => _ThemeHelpers;
+        }
 
-                if (!string.IsNullOrEmpty(savedTheme))
+        private ThemeHelper(AppWindow appWindow)
+        {
+            _appWindow = appWindow;
+            _uiSettings = new();
+            _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+            _themeChangedCallbacks = new();
+            _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
+        }
+
+        public void UpdateTheme()
+        {
+            switch (CurrentTheme)
+            {
+                case ApplicationTheme.Dark:
+                case ApplicationTheme.Light:
+                    if (AppWindowTitleBar.IsCustomizationSupported())
+                    {
+                        _appWindow.TitleBar.ButtonHoverBackgroundColor = (Color)Application.Current.Resources["SystemBaseLowColor"];
+                        _appWindow.TitleBar.ButtonForegroundColor = (Color)Application.Current.Resources["SystemBaseHighColor"];
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void RegisterForThemeChangedCallback(string className, Action<ApplicationTheme> callback)
+        {
+            _themeChangedCallbacks.Add(className, callback);
+        }
+
+        public void UnregisterForThemeChangedCallback(string className)
+        {
+            _themeChangedCallbacks.Remove(className);
+        }
+
+        private async void Settings_ColorValuesChanged(UISettings sender, object args)
+        {
+            CurrentTheme = CurrentTheme == ApplicationTheme.Dark ? ApplicationTheme.Light : ApplicationTheme.Dark;
+            await _dispatcherQueue.EnqueueAsync(() =>
+            {
+                UpdateTheme();
+
+                foreach (var item in _themeChangedCallbacks.Values)
                 {
-                    return EnumExtensions.GetEnum<ElementTheme>(savedTheme);
+                    item(CurrentTheme);
                 }
-                else
-                {
-                    return ElementTheme.Default;
-                }
-            }
-            set
-            {
-                ApplicationData.Current.LocalSettings.Values[selectedAppThemeKey] = value.ToString();
-                ApplyTheme();
-            }
+            }, DispatcherQueuePriority.Low);
         }
 
-        public static void Initialize()
+        public static ThemeHelper RegisterWindowInstance(AppWindow appWindow)
         {
-            // Save reference as this might be null when the user is in another app
-            currentApplicationWindow = App.Window;
+            if (_ThemeHelpers.TryGetValue(appWindow, out var themeHelper))
+            {
+                return themeHelper;
+            }
 
-            // Set TitleBar background color
-            titleBar = 
-                /*
-                   TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
-                   Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
-                */
-                ApplicationView.GetForCurrentView().TitleBar;
+            themeHelper = new(appWindow);
+            _ThemeHelpers.Add(appWindow, themeHelper);
 
-            // Apply the desired theme based on what is set in the application settings
-            ApplyTheme();
-
-            // Registering to color changes, thus we notice when user changes theme system wide
-            UiSettings = new UISettings();
-            UiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged;
+            return themeHelper;
         }
 
-        private static async void UiSettings_ColorValuesChanged(UISettings sender, object args)
+        public static bool UnregisterWindowInstance(AppWindow appWindow)
         {
-            // Make sure we have a reference to our window so we dispatch a UI change
-            if (currentApplicationWindow != null)
+            if (_ThemeHelpers.Remove(appWindow, out var themeHelper))
             {
-                // Dispatch on UI thread so that we have a current appbar to access and change
-                await currentApplicationWindow.DispatcherQueue.EnqueueAsync(() =>
-                {
-                    ApplyTheme();
-                });
-            }
-        }
-
-        private static void ApplyTheme()
-        {
-            var rootTheme = RootTheme;
-
-            if (App.Window.Content is FrameworkElement rootElement)
-            {
-                rootElement.RequestedTheme = rootTheme;
+                themeHelper._uiSettings.ColorValuesChanged -= themeHelper.Settings_ColorValuesChanged;
             }
 
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            switch (rootTheme)
-            {
-                case ElementTheme.Default:
-                    titleBar.ButtonHoverBackgroundColor = (Color)Application.Current.Resources["SystemBaseLowColor"];
-                    titleBar.ButtonForegroundColor = (Color)Application.Current.Resources["SystemBaseHighColor"];
-                    break;
-
-                case ElementTheme.Light:
-                    titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 0, 0, 0);
-                    titleBar.ButtonForegroundColor = Colors.Black;
-                    break;
-
-                case ElementTheme.Dark:
-                    titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 255, 255, 255);
-                    titleBar.ButtonForegroundColor = Colors.White;
-                    break;
-            }
-            App.AppSettings.UpdateThemeElements.Execute(null);
+            return false;
         }
     }
 }
