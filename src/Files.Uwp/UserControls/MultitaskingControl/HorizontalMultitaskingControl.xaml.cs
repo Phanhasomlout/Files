@@ -148,7 +148,7 @@ namespace Files.Uwp.UserControls.MultitaskingControl
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey(TabDropHandledIdentifier) &&
                 (bool)ApplicationData.Current.LocalSettings.Values[TabDropHandledIdentifier])
             {
-                CloseTab(args.Item as TabItem);
+                CloseTabAsync(args.Item as TabItem);
             }
             else
             {

@@ -7,13 +7,18 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.UserControls.MultitaskingControl
 {
     public class BaseMultitaskingControl : UserControl, IMultitaskingControl, INotifyPropertyChanged
     {
+        private IApplicationService ApplicationService { get; } = Ioc.Default.GetRequiredService<IApplicationService>();
+
         private static bool isRestoringClosedTab = false; // Avoid reopening two tabs
 
         protected ITabItemContent CurrentSelectedAppInstance;
@@ -78,7 +83,7 @@ namespace Files.Uwp.UserControls.MultitaskingControl
 
         protected void TabStrip_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
-            CloseTab(args.Item as TabItem);
+            CloseTabAsync(args.Item as TabItem);
         }
 
         protected async void TabView_AddTabButtonClick(TabView sender, object args)
@@ -130,11 +135,11 @@ namespace Files.Uwp.UserControls.MultitaskingControl
             await MultitaskingTabsHelpers.MoveTabToNewWindow(((FrameworkElement)sender).DataContext as TabItem, this);
         }
 
-        public void CloseTab(TabItem tabItem)
+        public async Task CloseTabAsync(TabItem tabItem)
         {
             if (Items.Count == 1)
             {
-                App.CloseApp();
+                await ApplicationService.CloseApplicationAsync();
             }
             else if (Items.Count > 1)
             {

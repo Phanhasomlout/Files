@@ -23,6 +23,8 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.Views
 {
@@ -45,6 +47,8 @@ namespace Files.Uwp.Views
         private Storyboard CrossUnHoverAnim;
 
         private XamlCompositionBrushBase micaBrush;
+
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
         public SettingsViewModel AppSettings => App.AppSettings;
 
@@ -118,10 +122,10 @@ namespace Files.Uwp.Views
                         (micaBrush as Brushes.MicaBrush).SetAppWindow(appWindow);
                         Frame.Background = micaBrush;
                     }
-                    else
-                    {
-                        Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(sender as Control, true);
-                    }
+                    //else
+                    //{
+                    //    Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(sender as Control, true);
+                    //}
 
                     var duration = new Duration(TimeSpan.FromMilliseconds(280));
 
@@ -167,8 +171,6 @@ namespace Files.Uwp.Views
                 }
                 else
                 {
-                    Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(sender as Control, true);
-
                     TitleBar = 
                 /*
                    TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
@@ -179,11 +181,12 @@ namespace Files.Uwp.Views
                     TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                     App.Window.SetTitleBar(TitleBarDragArea);
                 }
-                await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => AppSettings.UpdateThemeElements.Execute(null));
+
+                await ThreadingService.ExecuteOnUiThreadAsync();
+                AppSettings.UpdateThemeElements.Execute(null);
             }
             else
             {
-                Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(sender as Control, true);
                 propertiesDialog = DependencyObjectHelpers.FindParent<ContentDialog>(this);
                 propertiesDialog.Closed += PropertiesDialog_Closed;
             }
@@ -208,12 +211,10 @@ namespace Files.Uwp.Views
 
         private async void AppSettings_ThemeModeChanged(object sender, EventArgs e)
         {
-            var selectedTheme = ThemeHelper.RootTheme;
             await /*
                 TODO UA306_A2: UWP CoreDispatcher : Windows.UI.Core.CoreDispatcher is no longer supported. Use DispatcherQueue instead. Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/threading
             */Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                RequestedTheme = selectedTheme;
                 if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
                 {
                     switch (RequestedTheme)

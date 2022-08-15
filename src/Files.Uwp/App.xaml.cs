@@ -104,6 +104,7 @@ namespace Files.Uwp
             var serviceCollection = new ServiceCollection();
 
             serviceCollection
+                .AddSingleton<IApplicationService, ApplicationService>()
                 .AddSingleton<IThreadingService, ThreadingService>();
 
             return serviceCollection.BuildServiceProvider();

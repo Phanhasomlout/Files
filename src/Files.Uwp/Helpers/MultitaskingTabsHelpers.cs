@@ -17,7 +17,7 @@ namespace Files.Uwp.Helpers
                 var tabs = MainPageViewModel.AppInstances;
                 var currentIndex = tabs.IndexOf(clickedTab);
 
-                tabs.Take(currentIndex).ToList().ForEach(tab => multitaskingControl.CloseTab(tab));
+                tabs.Take(currentIndex).ToList().ForEach(tab => multitaskingControl.CloseTabAsync(tab));
             }
         }
 
@@ -28,7 +28,7 @@ namespace Files.Uwp.Helpers
                 var tabs = MainPageViewModel.AppInstances;
                 var currentIndex = tabs.IndexOf(clickedTab);
 
-                tabs.Skip(currentIndex + 1).ToList().ForEach(tab => multitaskingControl.CloseTab(tab));
+                tabs.Skip(currentIndex + 1).ToList().ForEach(tab => multitaskingControl.CloseTabAsync(tab));
             }
         }
 
@@ -37,7 +37,7 @@ namespace Files.Uwp.Helpers
             if (multitaskingControl is not null)
             {
                 var tabs = MainPageViewModel.AppInstances;
-                tabs.Where((t) => t != clickedTab).ToList().ForEach(tab => multitaskingControl.CloseTab(tab));
+                tabs.Where((t) => t != clickedTab).ToList().ForEach(tab => multitaskingControl.CloseTabAsync(tab));
             }
         }
 
@@ -46,7 +46,7 @@ namespace Files.Uwp.Helpers
             int index = MainPageViewModel.AppInstances.IndexOf(tab);
             TabItemArguments tabItemArguments = MainPageViewModel.AppInstances[index].TabItemArguments;
 
-            multitaskingControl?.CloseTab(MainPageViewModel.AppInstances[index]);
+            multitaskingControl?.CloseTabAsync(MainPageViewModel.AppInstances[index]);
 
             if (tabItemArguments != null)
             {

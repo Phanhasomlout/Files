@@ -51,7 +51,7 @@ namespace Files.Uwp.ServicesImplementation
 
             public void OnCompleted(Action continuation)
             {
-                _ = _dispatcherQueue.DispatchAsync(continuation);
+                _ = _dispatcherQueue.EnqueueAsync(continuation);
             }
         }
     }

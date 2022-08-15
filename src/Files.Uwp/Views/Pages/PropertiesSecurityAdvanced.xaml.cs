@@ -1,13 +1,10 @@
 using Files.Uwp.DataModels.NavigationControlItems;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.Permissions;
-using Files.Uwp.Helpers;
 using Files.Uwp.ViewModels.Properties;
 using CommunityToolkit.WinUI;
 using System;
 using System.Linq;
-using Windows.ApplicationModel.Core;
-using Microsoft.Windows.ApplicationModel.Resources;
 using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI;
@@ -19,6 +16,8 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,6 +28,8 @@ namespace Files.Uwp.Views
     /// </summary>
     public sealed partial class PropertiesSecurityAdvanced : Page
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private static ApplicationViewTitleBar TitleBar;
 
         private object navParameterItem;
@@ -73,8 +74,6 @@ namespace Files.Uwp.Views
 
         private async void Properties_Loaded(object sender, RoutedEventArgs e)
         {
-            Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(sender as Control, true);
-
             App.AppSettings.ThemeModeChanged += AppSettings_ThemeModeChanged;
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
             {
@@ -87,7 +86,9 @@ namespace Files.Uwp.Views
                 ApplicationView.GetForCurrentView().TitleBar;
                 TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => App.AppSettings.UpdateThemeElements.Execute(null));
+
+                await ThreadingService.ExecuteOnUiThreadAsync();
+                App.AppSettings.UpdateThemeElements.Execute(null);
             }
             else
             {
@@ -103,12 +104,10 @@ namespace Files.Uwp.Views
 
         private async void AppSettings_ThemeModeChanged(object sender, EventArgs e)
         {
-            var selectedTheme = ThemeHelper.RootTheme;
             await /*
                 TODO UA306_A2: UWP CoreDispatcher : Windows.UI.Core.CoreDispatcher is no longer supported. Use DispatcherQueue instead. Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/threading
             */Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                RequestedTheme = selectedTheme;
                 if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
                 {
                     switch (RequestedTheme)

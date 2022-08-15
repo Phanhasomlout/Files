@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Files.Uwp.UserControls.MultitaskingControl
 {
@@ -14,7 +15,7 @@ namespace Files.Uwp.UserControls.MultitaskingControl
 
         public List<ITabItemContent> GetAllTabInstances();
 
-        public void CloseTab(TabItem tabItem);
+        public Task CloseTabAsync(TabItem tabItem);
 
         public void SetLoadingIndicatorStatus(ITabItem item, bool loading);
     }
