@@ -623,7 +623,7 @@ namespace Files.Uwp.ViewModels
                     OnPropertyChanged(nameof(AreFileTagsEnabled));
                     break;
                 case nameof(UserSettingsService.AppearanceSettingsService.UseCompactStyles):
-                    new SettingsViewModels.AppearanceViewModel().SetCompactStyles(true);
+                    new SettingsViewModels.AppearanceViewModel().SetCompactStyles();
                     break;
             }
         }

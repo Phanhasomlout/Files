@@ -10,11 +10,14 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Files.Backend.Services;
 
 namespace Files.Uwp.Filesystem.Cloud
 {
     public class CloudDrivesManager
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
         private readonly ICloudDetector detector = Ioc.Default.GetRequiredService<ICloudDetector>();
 
@@ -59,9 +62,10 @@ namespace Files.Uwp.Filesystem.Cloud
                 var iconData = provider.IconData ?? await FileThumbnailHelper.LoadIconWithoutOverlayAsync(provider.SyncFolder, 24);
                 if (iconData is not null)
                 {
+                    await ThreadingService.ExecuteOnUiThreadAsync();
+
                     cloudProviderItem.IconData = iconData;
-                    await CoreApplication.MainView.CoreWindow.DispatcherQueue
-                        .EnqueueAsync(async () => cloudProviderItem.Icon = await iconData.ToBitmapAsync());
+                    cloudProviderItem.Icon = await iconData.ToBitmapAsync();
                 }
 
                 lock (drives)

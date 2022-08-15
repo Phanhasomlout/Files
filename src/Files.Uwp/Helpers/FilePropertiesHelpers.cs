@@ -72,7 +72,6 @@ namespace Files.Uwp.Helpers
                 Microsoft.UI.Windowing.AppWindow.Create();
 
                     Frame frame = new Frame();
-                    frame.RequestedTheme = ThemeHelper.RootTheme;
                     frame.Navigate(typeof(Properties), new PropertiesPageNavigationArguments()
                     {
                         Item = item,
