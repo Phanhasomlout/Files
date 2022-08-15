@@ -16,6 +16,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
+using Files.Sdk.Services;
 using static Files.Sdk.Helpers.NativeFindStorageItemHelper;
 using FileAttributes = System.IO.FileAttributes;
 
@@ -26,6 +27,8 @@ namespace Files.Uwp.Filesystem.Search
         private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         private IFileTagsSettingsService FileTagsSettingsService { get; } = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
+
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
         private const uint defaultStepSize = 500;
 
@@ -394,13 +397,15 @@ namespace Files.Uwp.Filesystem.Search
                     {
                         if (t.IsCompletedSuccessfully && t.Result != null)
                         {
-                            _ = FilesystemTasks.Wrap(() => CoreApplication.MainView.DispatcherQueue.EnqueueAsync(async () =>
+                            _ = FilesystemTasks.Wrap(async () =>
                             {
+                                await ThreadingService.ExecuteOnUiThreadAsync();
                                 listedItem.FileImage = await t.Result.ToBitmapAsync();
-                            }, Windows.System.DispatcherQueuePriority.Low));
+                            });
                         }
                     });
             }
+
             return listedItem;
         }
 

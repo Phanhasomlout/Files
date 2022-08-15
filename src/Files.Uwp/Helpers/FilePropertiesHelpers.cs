@@ -123,7 +123,6 @@ namespace Files.Uwp.Helpers
             */newWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     {
                         Frame frame = new Frame();
-                        frame.RequestedTheme = ThemeHelper.RootTheme;
                         frame.Navigate(typeof(Properties), new PropertiesPageNavigationArguments()
                         {
                             Item = item,

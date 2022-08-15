@@ -144,12 +144,6 @@ namespace Files.Uwp
 #endif
                 .AddSingleton<IDateTimeFormatterFactory, DateTimeFormatterFactory>()
                 .AddSingleton<IDateTimeFormatter, UserDateTimeFormatter>()
-
-                // TODO(i): FileSystem operations:
-                // (IFilesystemHelpersService, IFilesystemOperationsService)
-                // (IStorageEnumerator, IFallbackStorageEnumerator)
-                .AddSingleton<IFolderSizeProvider, FolderSizeProvider>()
-
                 ; // End of service configuration
 
 
