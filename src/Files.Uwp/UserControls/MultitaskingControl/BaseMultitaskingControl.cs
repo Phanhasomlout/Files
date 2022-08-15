@@ -9,9 +9,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.UserControls.MultitaskingControl
 {

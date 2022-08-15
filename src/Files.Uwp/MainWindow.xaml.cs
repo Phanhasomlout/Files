@@ -42,7 +42,8 @@ namespace Files.Uwp
             else
             {
                 ExtendsContentIntoTitleBar = true;
-                SetTitleBar(HostControl.CustomTitleBar);
+                //WINUI3
+                //SetTitleBar(HostControl.CustomTitleBar);
             }
 
             // Register ThemeHelper

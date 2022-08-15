@@ -13,17 +13,17 @@
     HorizontalAlignment="Stretch"
     d:DesignHeight="768"
     d:DesignWidth="200"
-    IsBackButtonVisible="Collapsed"
-    PaneOpened="NavigationView_PaneOpened"
-    PaneClosed="NavigationView_PaneClosed"
-    IsSettingsVisible="False"
-    Expanding="NavigationView_Expanding"
     Collapsed="NavigationView_Collapsed"
     DisplayModeChanged="SidebarControl_DisplayModeChanged"
+    Expanding="NavigationView_Expanding"
+    IsBackButtonVisible="Collapsed"
+    IsSettingsVisible="False"
     IsTitleBarAutoPaddingEnabled="False"
     ItemInvoked="Sidebar_ItemInvoked"
     MenuItemsSource="{x:Bind ViewModel.SideBarItems, Mode=OneWay}"
     OpenPaneLength="{x:Bind UserSettingsService.AppearanceSettingsService.SidebarWidth, Mode=OneTime}"
+    PaneClosed="NavigationView_PaneClosed"
+    PaneOpened="NavigationView_PaneOpened"
     SelectedItem="{x:Bind SelectedSidebarItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
     mc:Ignorable="d">
     <FlyoutBase.AttachedFlyout>
@@ -69,7 +69,7 @@
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="{x:Bind Icon, Mode=OneWay}" />
                     </muxc:NavigationViewItem.Icon>
-                    <!-- WINUI3 -->
+                    <!--  WINUI3  -->
                     <!--<muxc:NavigationViewItem.InfoBadge>
                         <muxc:InfoBadge Style="{ThemeResource CautionIconInfoBadgeStyle}" Visibility="{x:Bind IsInvalid, Mode=OneWay}" />
                     </muxc:NavigationViewItem.InfoBadge>-->
