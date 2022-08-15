@@ -1,5 +1,5 @@
 using Files.Shared.Enums;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using System.ComponentModel;
 using Microsoft.UI.Xaml.Controls;

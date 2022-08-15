@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 
-namespace Files.Backend.ViewModels.Dialogs
+namespace Files.Sdk.ViewModels.Dialogs
 {
     /// <summary>
     /// Serves as the base dialog view model containing reusable,

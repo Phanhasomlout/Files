@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Shared.Services.DateTimeFormatter;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.StorageItems;

@@ -1,10 +1,10 @@
-﻿using Files.Backend.Extensions;
+﻿using Files.Sdk.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Lib = ByteSizeLib;
 
-namespace Files.Backend.Models
+namespace Files.Sdk.Models
 {
     public struct ByteSize : IEquatable<ByteSize>, IComparable<ByteSize>
     {

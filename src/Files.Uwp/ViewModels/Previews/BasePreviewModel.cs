@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.StorageItems;
 using Files.Uwp.Helpers;
@@ -15,7 +15,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Storage.FileProperties;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.ViewModels.Previews
 {

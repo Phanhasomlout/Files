@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Files.Backend.Services.SizeProvider
+namespace Files.Sdk.Services.SizeProvider
 {
     public class SizeChangedEventArgs : EventArgs
     {

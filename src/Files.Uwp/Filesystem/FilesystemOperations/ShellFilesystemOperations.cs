@@ -14,12 +14,12 @@ using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Files.Shared;
-using Files.Backend.ViewModels.Dialogs;
+using Files.Sdk.ViewModels.Dialogs;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 using CommunityToolkit.WinUI;
 using Files.Uwp.Filesystem.StorageItems;
-using Files.Backend.ViewModels.Dialogs.FileSystemDialog;
+using Files.Sdk.ViewModels.Dialogs.FileSystemDialog;
 
 namespace Files.Uwp.Filesystem
 {

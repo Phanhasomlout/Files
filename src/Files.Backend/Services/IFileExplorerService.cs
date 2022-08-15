@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Files.Sdk.Storage.LocatableStorage;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     /// <summary>
     /// A service that interacts with the system file explorer.

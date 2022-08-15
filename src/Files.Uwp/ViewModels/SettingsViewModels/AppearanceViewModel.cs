@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.Helpers;
 using CommunityToolkit.WinUI;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
-using Files.Backend.ViewModels.Dialogs;
-using Files.Backend.SecureStore;
+using Files.Sdk.ViewModels.Dialogs;
+using Files.Sdk.SecureStore;
 using Files.Shared.Enums;
 using System;
 using System.Text;

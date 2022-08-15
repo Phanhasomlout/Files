@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Helpers;
+using Files.Sdk.Services.Settings;
 using Files.Shared;
 using Files.Shared.Enums;
 using Files.Uwp.Filesystem;

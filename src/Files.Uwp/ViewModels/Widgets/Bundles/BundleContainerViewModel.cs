@@ -2,7 +2,7 @@ using Files.Uwp.Dialogs;
 using Files.Shared.Enums;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels.Dialogs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;

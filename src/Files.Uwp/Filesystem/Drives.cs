@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.SizeProvider;
+using Files.Sdk.Services.SizeProvider;
 using Files.Shared;
 using Files.Shared.Enums;
 using Files.Uwp.DataModels.NavigationControlItems;
@@ -17,7 +17,7 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using DriveType = Files.Uwp.DataModels.NavigationControlItems.DriveType;
 using IO = System.IO;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.Filesystem
 {

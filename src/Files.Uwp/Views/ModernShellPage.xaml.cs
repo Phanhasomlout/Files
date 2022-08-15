@@ -6,7 +6,7 @@ using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.FilesystemHistory;
 using Files.Uwp.Filesystem.Search;
 using Files.Uwp.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.UserControls;
 using Files.Uwp.UserControls.MultitaskingControl;
 using Files.Uwp.ViewModels;
@@ -33,9 +33,9 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using SortDirection = Files.Shared.Enums.SortDirection;
-using Files.Backend.Enums;
-using Files.Backend.Services;
-using Files.Backend.ViewModels.Dialogs.AddItemDialog;
+using Files.Sdk.Enums;
+using Files.Sdk.Services;
+using Files.Sdk.ViewModels.Dialogs.AddItemDialog;
 
 namespace Files.Uwp.Views
 {
@@ -54,7 +54,7 @@ namespace Files.Uwp.Views
 
         private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-        private IUpdateService UpdateSettingsService { get; } = Ioc.Default.GetRequiredService<IUpdateService>();
+        private IUpdateServiceDeprecated UpdateSettingsService { get; } = Ioc.Default.GetRequiredService<IUpdateServiceDeprecated>();
 
         private bool isCurrentInstance = false;
         public bool IsCurrentInstance

@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Enums;
-using Files.Backend.Extensions;
-using Files.Backend.Models.Dialogs;
-using Files.Backend.Models.Imaging;
-using Files.Backend.Services;
+using Files.Sdk.Enums;
+using Files.Sdk.Extensions;
+using Files.Sdk.Models.Dialogs;
+using Files.Sdk.Models.Imaging;
+using Files.Sdk.Services;
 using Files.Shared;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 #nullable enable
 
-namespace Files.Backend.ViewModels.Dialogs.AddItemDialog
+namespace Files.Sdk.ViewModels.Dialogs.AddItemDialog
 {
     public sealed class AddItemDialogViewModel : ObservableObject
     {

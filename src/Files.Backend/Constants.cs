@@ -1,4 +1,4 @@
-﻿namespace Files.Backend
+﻿namespace Files.Sdk
 {
     public static class Constants
     {

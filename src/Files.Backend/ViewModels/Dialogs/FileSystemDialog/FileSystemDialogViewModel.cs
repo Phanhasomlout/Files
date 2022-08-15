@@ -2,9 +2,9 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Files.Backend.Extensions;
-using Files.Backend.Messages;
-using Files.Backend.Services;
+using Files.Sdk.Extensions;
+using Files.Sdk.Messages;
+using Files.Sdk.Services;
 using Files.Shared.Enums;
 using Files.Shared.Extensions;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Files.Backend.ViewModels.Dialogs.FileSystemDialog
+namespace Files.Sdk.ViewModels.Dialogs.FileSystemDialog
 {
     public sealed class FileSystemDialogViewModel : BaseDialogViewModel, IRecipient<FileSystemDialogOptionChangedMessage>
     {

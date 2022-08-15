@@ -1,9 +1,9 @@
-﻿using Files.Backend.Enums;
+﻿using Files.Sdk.Enums;
 using Files.Shared;
 
 #nullable enable
 
-namespace Files.Backend.Models.Dialogs
+namespace Files.Sdk.Models.Dialogs
 {
     public sealed class AddItemDialogResultModel
     {

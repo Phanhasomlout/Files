@@ -1,5 +1,5 @@
-using Files.Backend.ViewModels.Dialogs;
-using Files.Backend.Services;
+using Files.Sdk.ViewModels.Dialogs;
+using Files.Sdk.Services;
 using Files.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Controls;
 using Files.Uwp.ViewModels.Dialogs;
 using Files.Uwp.Dialogs;
-using Files.Backend.ViewModels.Dialogs.AddItemDialog;
-using Files.Backend.ViewModels.Dialogs.FileSystemDialog;
+using Files.Sdk.ViewModels.Dialogs.AddItemDialog;
+using Files.Sdk.ViewModels.Dialogs.FileSystemDialog;
 
 namespace Files.Uwp.ServicesImplementation
 {

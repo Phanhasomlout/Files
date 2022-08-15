@@ -1,7 +1,7 @@
 using Files.Shared.Enums;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.StorageItems;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels;
 using Files.Uwp.ViewModels.Widgets;
 using CommunityToolkit.Mvvm.DependencyInjection;

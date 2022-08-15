@@ -1,4 +1,4 @@
-﻿namespace Files.Backend.Services
+﻿namespace Files.Sdk.Services
 {
     public interface ILocalizationService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Files.Backend.Models.Coloring
+namespace Files.Sdk.Models.Coloring
 {
     [Serializable]
     public abstract class ColorModel : ICustomFormattable

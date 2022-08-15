@@ -2,7 +2,7 @@ using Files.Uwp.DataModels.NavigationControlItems;
 using Files.Uwp.Dialogs;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.UserControls.Widgets;
 using Files.Uwp.ViewModels;
 using Files.Uwp.ViewModels.Pages;

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Files.Backend.SecureStore
+namespace Files.Sdk.SecureStore
 {
     public sealed class DisposableArray : FreeableStore<DisposableArray>
     {

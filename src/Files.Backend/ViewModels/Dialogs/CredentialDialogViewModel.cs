@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Files.Backend.SecureStore;
+using Files.Sdk.SecureStore;
 
 #nullable enable
 
-namespace Files.Backend.ViewModels.Dialogs
+namespace Files.Sdk.ViewModels.Dialogs
 {
     public sealed class CredentialDialogViewModel : ObservableObject
     {

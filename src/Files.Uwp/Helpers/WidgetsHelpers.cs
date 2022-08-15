@@ -1,4 +1,4 @@
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.UserControls.Widgets;
 using Files.Uwp.ViewModels.Widgets;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Extensions;
-using Files.Backend.Services.Settings;
-using Files.Backend.Services.SizeProvider;
+using Files.Sdk.Extensions;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.Services.SizeProvider;
 using Files.Shared;
 using Files.Uwp.Extensions;
 using Files.Uwp.Filesystem.StorageItems;

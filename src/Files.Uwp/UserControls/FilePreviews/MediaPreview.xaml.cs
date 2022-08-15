@@ -1,4 +1,4 @@
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels.Previews;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Windows.Media.Playback;

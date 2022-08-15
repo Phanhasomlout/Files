@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Files.Backend.ViewModels.Dialogs
+namespace Files.Sdk.ViewModels.Dialogs
 {
     public sealed class SettingsDialogViewModel : ObservableObject
     {

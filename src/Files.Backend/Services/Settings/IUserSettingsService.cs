@@ -1,7 +1,7 @@
 ﻿using Files.Shared.EventArguments;
 using System;
 
-namespace Files.Backend.Services.Settings
+namespace Files.Sdk.Services.Settings
 {
     public interface IUserSettingsService : IBaseSettingsService
     {

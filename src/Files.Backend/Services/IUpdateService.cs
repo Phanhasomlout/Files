@@ -1,26 +1,39 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.Threading.Tasks;
+using System.Threading;
+using Files.Sdk.Enums;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
-    public interface IUpdateService : INotifyPropertyChanged
+    /// <summary>
+    /// A service to start and manage app updates.
+    /// </summary>
+    public interface IUpdateService
     {
         /// <summary>
-        /// Gets a value indicating whether updates are available.
+        /// Checks whether the app supports updates.
         /// </summary>
-        bool IsUpdateAvailable { get; }
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation. The value is true if updates are supported, otherwise false.</returns>
+        Task<bool> IsSupportedAsync();
 
         /// <summary>
-        /// Gets a value indicating if an update is in progress.
+        /// Initializes resources used for updating the app.
         /// </summary>
-        bool IsUpdating { get; }
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation. If successful, returns true otherwise false.</returns>
+        Task<bool> InitializeAsync();
 
-        int DownloadPercentage { get; }
+        /// <summary>
+        /// Checks whether there are available updates.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation. If available updates were found, returns true otherwise false.</returns>
+        Task<bool> IsUpdateAvailableAsync();
 
-        Task DownloadUpdates();
-
-        Task DownloadMandatoryUpdates();
-
-        Task CheckForUpdates();
+        /// <summary>
+        /// Starts all app updates in the update queue.
+        /// </summary>
+        /// <param name="progress">The progress of the operation</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that cancels this action.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation. The result of the operation is determined by <see cref="AppUpdateResult"/>.</returns>
+        Task<AppUpdateResult> UpdateAsync(IProgress<double>? progress, CancellationToken cancellationToken = default);
     }
 }

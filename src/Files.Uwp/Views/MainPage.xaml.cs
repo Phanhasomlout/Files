@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using Files.Backend.Extensions;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Extensions;
+using Files.Sdk.Services.Settings;
 using Files.Shared.Enums;
 using Files.Shared.EventArguments;
 using Files.Uwp.DataModels.NavigationControlItems;

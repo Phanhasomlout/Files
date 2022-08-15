@@ -1,5 +1,5 @@
-using Files.Backend.Models.Imaging;
-using Files.Backend.Services;
+using Files.Sdk.Models.Imaging;
+using Files.Sdk.Services;
 using Files.Uwp.Helpers;
 using Files.Uwp.Imaging;
 using System.Threading.Tasks;

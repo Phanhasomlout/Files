@@ -1,4 +1,4 @@
-﻿namespace Files.Backend.Enums
+﻿namespace Files.Sdk.Enums
 {
     public enum AddItemDialogItemType
     {

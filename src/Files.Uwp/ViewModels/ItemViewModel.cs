@@ -1,9 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
-using Files.Backend.Services.Settings;
-using Files.Backend.Services.SizeProvider;
-using Files.Backend.ViewModels.Dialogs;
+using Files.Sdk.Services;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.Services.SizeProvider;
+using Files.Sdk.ViewModels.Dialogs;
 using Files.Shared;
 using Files.Shared.Cloud;
 using Files.Shared.Enums;

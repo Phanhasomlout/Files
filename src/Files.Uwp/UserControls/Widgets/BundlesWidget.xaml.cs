@@ -1,4 +1,4 @@
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels.Widgets;
 using Files.Uwp.ViewModels.Widgets.Bundles;
 using CommunityToolkit.Mvvm.DependencyInjection;

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Files.Backend.Services.SizeProvider
+namespace Files.Sdk.Services.SizeProvider
 {
     public class NoSizeProvider : ISizeProvider
     {

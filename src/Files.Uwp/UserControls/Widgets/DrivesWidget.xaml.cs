@@ -1,6 +1,6 @@
 using Files.Uwp.DataModels.NavigationControlItems;
 using Files.Uwp.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels.Widgets;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.WinUI;
@@ -20,7 +20,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.ApplicationModel.Core;
 using System.Collections.Specialized;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.UserControls.Widgets
 {

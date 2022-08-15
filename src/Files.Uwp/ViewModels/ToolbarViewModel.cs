@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using Files.Backend.Services;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Filesystem.StorageItems;
 using Files.Uwp.Helpers;
@@ -39,7 +39,7 @@ namespace Files.Uwp.ViewModels
     {
         private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-        public IUpdateService UpdateService { get; } = Ioc.Default.GetRequiredService<IUpdateService>();
+        public IUpdateServiceDeprecated UpdateService { get; } = Ioc.Default.GetRequiredService<IUpdateServiceDeprecated>();
 
         public delegate void ToolbarPathItemInvokedEventHandler(object sender, PathNavigationEventArgs e);
 

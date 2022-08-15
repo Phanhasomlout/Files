@@ -1,4 +1,4 @@
-﻿namespace Files.Backend.ViewModels.Dialogs.FileSystemDialog
+﻿namespace Files.Sdk.ViewModels.Dialogs.FileSystemDialog
 {
     public sealed class FileSystemDialogDefaultItemViewModel : BaseFileSystemDialogItemViewModel
     {

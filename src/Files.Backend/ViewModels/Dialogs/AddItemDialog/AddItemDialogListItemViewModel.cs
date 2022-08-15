@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Files.Backend.Models.Dialogs;
-using Files.Backend.Models.Imaging;
+using Files.Sdk.Models.Dialogs;
+using Files.Sdk.Models.Imaging;
 
 #nullable enable
 
-namespace Files.Backend.ViewModels.Dialogs.AddItemDialog
+namespace Files.Sdk.ViewModels.Dialogs.AddItemDialog
 {
     public sealed class AddItemDialogListItemViewModel : ObservableObject
     {

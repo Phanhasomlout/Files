@@ -1,4 +1,4 @@
-﻿namespace Files.Backend.Models.Coloring
+﻿namespace Files.Sdk.Models.Coloring
 {
     public sealed class SolidBrushColorModel : ColorModel
     {

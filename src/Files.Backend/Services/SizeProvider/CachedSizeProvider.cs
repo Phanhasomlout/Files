@@ -1,4 +1,4 @@
-﻿using Files.Backend.Extensions;
+﻿using Files.Sdk.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Files.Backend.Helpers.NativeFindStorageItemHelper;
 
-namespace Files.Backend.Services.SizeProvider
+namespace Files.Sdk.Services.SizeProvider
 {
     public class CachedSizeProvider : ISizeProvider
     {

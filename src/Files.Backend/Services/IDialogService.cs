@@ -1,9 +1,9 @@
-﻿using Files.Backend.ViewModels.Dialogs;
+﻿using Files.Sdk.ViewModels.Dialogs;
 using Files.Shared.Enums;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     public interface IDialogService
     {

@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
-using Files.Backend.Services.Settings;
-using Files.Backend.ViewModels.Dialogs.FileSystemDialog;
+using Files.Sdk.Services;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.ViewModels.Dialogs.FileSystemDialog;
 using Files.Shared;
 using Files.Shared.Enums;
 using Files.Shared.Extensions;

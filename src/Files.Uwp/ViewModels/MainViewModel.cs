@@ -10,9 +10,9 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
-using Files.Backend.ViewModels.Dialogs;
-using Files.Backend.Extensions;
+using Files.Sdk.Services;
+using Files.Sdk.ViewModels.Dialogs;
+using Files.Sdk.Extensions;
 
 namespace Files.Uwp.ViewModels
 {

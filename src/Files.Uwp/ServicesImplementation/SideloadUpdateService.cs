@@ -10,12 +10,12 @@ using Windows.Management.Deployment;
 using Windows.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 using Files.Shared;
 
 namespace Files.Uwp.ServicesImplementation
 {
-    public class SideloadUpdateService : ObservableObject, IUpdateService
+    public class SideloadUpdateService : ObservableObject, IUpdateServiceDeprecated
     {
         private const string SideloadStable = "https://cdn.files.community/files/stable/Files.Package.appinstaller";
         private const string SideloadPreview = "https://cdn.files.community/files/preview/Files.Package.appinstaller";

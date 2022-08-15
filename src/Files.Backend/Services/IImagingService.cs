@@ -1,7 +1,7 @@
-﻿using Files.Backend.Models.Imaging;
+﻿using Files.Sdk.Models.Imaging;
 using System.Threading.Tasks;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     public interface IImagingService
     {

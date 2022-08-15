@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.Controllers;
 using Files.Uwp.DataModels.NavigationControlItems;
 using Files.Uwp.Filesystem;
@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.DataModels
 {

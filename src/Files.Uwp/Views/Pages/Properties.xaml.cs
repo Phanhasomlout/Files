@@ -24,7 +24,7 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.Views
 {

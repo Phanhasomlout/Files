@@ -1,7 +1,7 @@
-﻿using Files.Backend.Models;
+﻿using Files.Sdk.Models;
 using System.Threading.Tasks;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     public interface IVolumeInfoFactory
     {

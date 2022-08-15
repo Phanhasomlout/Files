@@ -1,5 +1,5 @@
-using Files.Backend.ViewModels.Dialogs;
-using Files.Backend.ViewModels.Dialogs.FileSystemDialog;
+using Files.Sdk.ViewModels.Dialogs;
+using Files.Sdk.ViewModels.Dialogs.FileSystemDialog;
 using Files.Shared.Enums;
 using CommunityToolkit.WinUI.UI;
 using System;

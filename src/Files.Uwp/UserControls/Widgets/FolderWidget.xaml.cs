@@ -1,6 +1,6 @@
 using Files.Uwp.Filesystem;
 using Files.Uwp.Helpers;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.ViewModels.Widgets;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -21,7 +21,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Files.Uwp.DataModels.NavigationControlItems;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.UserControls.Widgets
 {

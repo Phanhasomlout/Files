@@ -1,4 +1,4 @@
-using Files.Backend.Models.Imaging;
+using Files.Sdk.Models.Imaging;
 using System.Collections.Generic;
 using Microsoft.UI.Xaml.Media.Imaging;
 

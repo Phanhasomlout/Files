@@ -1,7 +1,7 @@
 ﻿using Files.Shared.Enums;
 using System.ComponentModel;
 
-namespace Files.Backend.Services.Settings
+namespace Files.Sdk.Services.Settings
 {
     public interface IPaneSettingsService : IBaseSettingsService, INotifyPropertyChanged
     {

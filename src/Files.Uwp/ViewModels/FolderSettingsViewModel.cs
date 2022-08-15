@@ -2,7 +2,7 @@ using Files.Shared.Enums;
 using Files.Uwp.EventArguments;
 using Files.Uwp.Helpers;
 using Files.Uwp.Helpers.LayoutPreferences;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.Views.LayoutModes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;

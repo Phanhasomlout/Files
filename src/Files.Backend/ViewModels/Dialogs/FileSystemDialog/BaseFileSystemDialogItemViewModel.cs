@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using Files.Backend.Models.Imaging;
+using Files.Sdk.Models.Imaging;
 using System.IO;
 
-namespace Files.Backend.ViewModels.Dialogs.FileSystemDialog
+namespace Files.Sdk.ViewModels.Dialogs.FileSystemDialog
 {
     public abstract class BaseFileSystemDialogItemViewModel : ObservableObject
     {

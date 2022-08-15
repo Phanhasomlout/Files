@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
-using Files.Backend.ViewModels.FileTags;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.ViewModels.FileTags;
 using Files.Shared.Extensions;
 using Files.Shared.Services.DateTimeFormatter;
 using Files.Uwp.Extensions;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Files.Backend.Models.Imaging
+namespace Files.Sdk.Models.Imaging
 {
     public abstract class ImageModel : ICustomFormattable
     {

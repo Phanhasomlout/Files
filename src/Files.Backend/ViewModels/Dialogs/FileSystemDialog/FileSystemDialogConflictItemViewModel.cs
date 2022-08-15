@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Files.Backend.Messages;
+using Files.Sdk.Messages;
 using Files.Shared.Enums;
 using System.IO;
 
-namespace Files.Backend.ViewModels.Dialogs.FileSystemDialog
+namespace Files.Sdk.ViewModels.Dialogs.FileSystemDialog
 {
     public sealed class FileSystemDialogConflictItemViewModel : BaseFileSystemDialogItemViewModel, IFileSystemDialogConflictItemViewModel
     {

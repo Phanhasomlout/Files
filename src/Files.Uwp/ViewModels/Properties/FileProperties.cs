@@ -22,7 +22,7 @@ using Windows.Storage.Streams;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Dispatching;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.ViewModels.Properties
 {

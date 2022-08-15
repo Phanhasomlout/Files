@@ -4,8 +4,8 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
-using Files.Backend.ViewModels.FileTags;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.ViewModels.FileTags;
 using Files.Uwp.Filesystem;
 using System;
 

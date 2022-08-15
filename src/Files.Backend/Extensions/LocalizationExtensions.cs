@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 #nullable enable
 
-namespace Files.Backend.Extensions
+namespace Files.Sdk.Extensions
 {
     public static class LocalizationExtensions
     {

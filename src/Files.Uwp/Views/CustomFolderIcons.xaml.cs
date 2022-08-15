@@ -17,7 +17,7 @@ using Microsoft.UI.Xaml.Navigation;
 using static Files.Uwp.Views.PropertiesCustomization;
 using Files.Shared.Extensions;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 
 namespace Files.Uwp.Views
 {

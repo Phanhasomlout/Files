@@ -1,4 +1,4 @@
-using Files.Backend.ViewModels.FileTags;
+using Files.Sdk.ViewModels.FileTags;
 using Files.Uwp.Filesystem;
 
 namespace Files.Uwp.DataModels.NavigationControlItems

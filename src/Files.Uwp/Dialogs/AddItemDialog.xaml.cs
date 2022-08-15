@@ -1,5 +1,5 @@
-using Files.Backend.ViewModels.Dialogs.AddItemDialog;
-using Files.Backend.ViewModels.Dialogs;
+using Files.Sdk.ViewModels.Dialogs.AddItemDialog;
+using Files.Sdk.ViewModels.Dialogs;
 using Files.Shared;
 using Files.Uwp.Extensions;
 using System;

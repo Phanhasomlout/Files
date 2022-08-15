@@ -1,8 +1,8 @@
-﻿using Files.Backend.ViewModels.FileTags;
+﻿using Files.Sdk.ViewModels.FileTags;
 using System;
 using System.Collections.Generic;
 
-namespace Files.Backend.Services.Settings
+namespace Files.Sdk.Services.Settings
 {
     public interface IFileTagsSettingsService : IBaseSettingsService
     {

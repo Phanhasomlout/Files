@@ -1,10 +1,10 @@
-﻿using Files.Backend.Models.Coloring;
+﻿using Files.Sdk.Models.Coloring;
 using Newtonsoft.Json;
 using System;
 
 #nullable enable
 
-namespace Files.Backend.ViewModels.FileTags
+namespace Files.Sdk.ViewModels.FileTags
 {
     [Serializable]
     public sealed class FileTagViewModel

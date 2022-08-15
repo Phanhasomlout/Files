@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Shared.Cloud;
 using Files.Shared.EventArguments;
 using Files.Uwp.Filesystem;

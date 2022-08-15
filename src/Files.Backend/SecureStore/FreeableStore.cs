@@ -2,7 +2,7 @@
 
 #nullable enable
 
-namespace Files.Backend.SecureStore
+namespace Files.Sdk.SecureStore
 {
     public abstract class FreeableStore<TImplementation> : IDisposable, IEquatable<TImplementation>
         where TImplementation : class

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Files.Shared.Utils;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     /// <summary>
     /// A service to manage current thread execution.

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Windows.Services.Store;
 using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 using CommunityToolkit.WinUI;
 
 namespace Files.Uwp.ServicesImplementation
 {
-    internal sealed class UpdateService : ObservableObject, IUpdateService
+    internal sealed class UpdateService : ObservableObject, IUpdateServiceDeprecated
     {
         private StoreContext _storeContext;
         private IList<StorePackageUpdate> _updatePackages;

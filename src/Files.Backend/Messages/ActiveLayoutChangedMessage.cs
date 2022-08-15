@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using Files.Backend.ViewModels.Layouts;
+using Files.Sdk.ViewModels.Layouts;
 
-namespace Files.Backend.Messages
+namespace Files.Sdk.Messages
 {
     public sealed class ActiveLayoutChangedMessage : ValueChangedMessage<BaseLayoutViewModel>
     {

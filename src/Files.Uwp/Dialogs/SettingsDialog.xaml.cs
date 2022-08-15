@@ -1,4 +1,4 @@
-using Files.Backend.ViewModels.Dialogs;
+using Files.Sdk.ViewModels.Dialogs;
 using Files.Uwp.SettingsPages;
 using Files.Shared.Enums;
 using Files.Uwp.ViewModels;

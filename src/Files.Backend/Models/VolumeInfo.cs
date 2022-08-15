@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Files.Backend.Models
+namespace Files.Sdk.Models
 {
     public struct VolumeInfo : IEquatable<VolumeInfo>
     {

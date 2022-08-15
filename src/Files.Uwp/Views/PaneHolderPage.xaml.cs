@@ -1,5 +1,5 @@
 using Files.Uwp.Filesystem;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Uwp.UserControls.MultitaskingControl;
 using Files.Uwp.Views.LayoutModes;
 using CommunityToolkit.Mvvm.DependencyInjection;

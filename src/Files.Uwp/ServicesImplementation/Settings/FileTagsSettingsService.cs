@@ -1,5 +1,5 @@
-using Files.Backend.Services.Settings;
-using Files.Backend.ViewModels.FileTags;
+using Files.Sdk.Services.Settings;
+using Files.Sdk.ViewModels.FileTags;
 using Files.Uwp.Serialization;
 using Files.Uwp.Serialization.Implementation;
 using CommunityToolkit.WinUI;

@@ -1,6 +1,6 @@
 ﻿using Files.Shared.Enums;
 
-namespace Files.Backend.ViewModels.Dialogs.FileSystemDialog
+namespace Files.Sdk.ViewModels.Dialogs.FileSystemDialog
 {
     public interface IFileSystemDialogConflictItemViewModel
     {

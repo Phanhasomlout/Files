@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Files.Backend.ViewModels.Dialogs
+namespace Files.Sdk.ViewModels.Dialogs
 {
     public interface IDialog<TViewModel>
         where TViewModel : class, INotifyPropertyChanged

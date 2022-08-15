@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Files.Backend.Services
+namespace Files.Sdk.Services
 {
     /// <summary>
     /// A service that interacts with common app related APIs.

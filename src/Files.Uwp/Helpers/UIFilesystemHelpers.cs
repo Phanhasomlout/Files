@@ -17,7 +17,7 @@ using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Collections;
 using Windows.Storage;
-using Files.Backend.Enums;
+using Files.Sdk.Enums;
 using Windows.System;
 
 namespace Files.Uwp.Helpers

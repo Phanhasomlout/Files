@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services;
+using Files.Sdk.Services;
 using Microsoft.UI.Dispatching;
 
 namespace Files.Uwp.ViewModels.Properties

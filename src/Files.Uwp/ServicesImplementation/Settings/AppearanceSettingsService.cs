@@ -1,4 +1,4 @@
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Shared.EventArguments;
 using Files.Uwp.Serialization;
 using Microsoft.AppCenter.Analytics;

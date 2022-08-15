@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 using Files.Shared.EventArguments;
 using Files.Shared.Extensions;
 using Files.Uwp.Serialization;

@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
+using Files.Sdk.Services.Settings;
 
-namespace Files.Backend.ViewModels.Layouts
+namespace Files.Sdk.ViewModels.Layouts
 {
     public abstract class BaseLayoutViewModel : ObservableObject
     {

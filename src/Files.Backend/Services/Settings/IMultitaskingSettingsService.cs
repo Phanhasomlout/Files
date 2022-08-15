@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Files.Backend.Services.Settings
+namespace Files.Sdk.Services.Settings
 {
     public interface IMultitaskingSettingsService : IBaseSettingsService, INotifyPropertyChanged
     {
