@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Files.Shared.Extensions;
@@ -167,8 +169,11 @@ namespace Files.Uwp.DataModels.NavigationControlItems
             item.DeviceID = deviceId;
             item.Root = root;
 
-            _ = CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => item.UpdatePropertiesAsync());
+            var threadingService = Ioc.Default.GetRequiredService<IThreadingService>();
 
+            await threadingService.ExecuteOnUiThreadAsync();
+            _ = item.UpdatePropertiesAsync();
+            
             return item;
         }
 

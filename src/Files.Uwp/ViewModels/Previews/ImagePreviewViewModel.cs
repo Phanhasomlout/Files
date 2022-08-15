@@ -1,19 +1,21 @@
 using Files.Uwp.Filesystem;
 using Files.Uwp.ViewModels.Properties;
-using CommunityToolkit.WinUI;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.ViewModels.Previews
 {
     public class ImagePreviewViewModel : BasePreviewModel
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private ImageSource imageSource;
         public ImageSource ImageSource
         {
@@ -29,13 +31,12 @@ namespace Files.Uwp.ViewModels.Previews
         public override async Task<List<FileProperty>> LoadPreviewAndDetailsAsync()
         {
             using IRandomAccessStream stream = await Item.ItemFile.OpenAsync(FileAccessMode.Read);
-            await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(async () =>
-            {
-                BitmapImage bitmap = new();
-                await bitmap.SetSourceAsync(stream);
-                ImageSource = bitmap;
-            });
+            await ThreadingService.ExecuteOnUiThreadAsync();
 
+            var bitmap = new BitmapImage();
+            await bitmap.SetSourceAsync(stream);
+            ImageSource = bitmap;
+            
             return new List<FileProperty>();
         }
     }

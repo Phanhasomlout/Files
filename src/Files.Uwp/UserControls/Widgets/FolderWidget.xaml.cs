@@ -21,6 +21,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Files.Uwp.DataModels.NavigationControlItems;
+using Files.Backend.Services;
 
 namespace Files.Uwp.UserControls.Widgets
 {
@@ -36,6 +37,8 @@ namespace Files.Uwp.UserControls.Widgets
 
     public class FolderCardItem : ObservableObject, IWidgetCardItem<LocationItem>
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private BitmapImage thumbnail;
         private byte[] thumbnailData;
 
@@ -72,10 +75,12 @@ namespace Files.Uwp.UserControls.Widgets
         {
             if (thumbnailData == null || thumbnailData.Length == 0)
             {
+                await ThreadingService.ExecuteOnUiThreadAsync();
+
                 thumbnailData = await FileThumbnailHelper.LoadIconFromPathAsync(Path, Convert.ToUInt32(overrideThumbnailSize), Windows.Storage.FileProperties.ThumbnailMode.ListView);
                 if (thumbnailData != null && thumbnailData.Length > 0)
                 {
-                    Thumbnail = await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => thumbnailData.ToBitmapAsync(overrideThumbnailSize));
+                    Thumbnail = await thumbnailData.ToBitmapAsync(overrideThumbnailSize);
                 }
             }
         }

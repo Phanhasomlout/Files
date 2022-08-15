@@ -20,11 +20,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.ApplicationModel.Core;
 using System.Collections.Specialized;
+using Files.Backend.Services;
 
 namespace Files.Uwp.UserControls.Widgets
 {
     public class DriveCardItem : ObservableObject, IWidgetCardItem<DriveItem>
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private BitmapImage thumbnail;
         private byte[] thumbnailData;
 
@@ -43,6 +46,8 @@ namespace Files.Uwp.UserControls.Widgets
 
         public async Task LoadCardThumbnailAsync(int overrideThumbnailSize = 32)
         {
+            await ThreadingService.ExecuteOnUiThreadAsync();
+
             if (thumbnailData == null || thumbnailData.Length == 0)
             {
                 // Try load thumbnail using ListView mode
@@ -56,7 +61,7 @@ namespace Files.Uwp.UserControls.Widgets
             if (thumbnailData != null && thumbnailData.Length > 0)
             {
                 // Thumbnail data is valid, set the item icon
-                Thumbnail = await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => thumbnailData.ToBitmapAsync(overrideThumbnailSize));
+                Thumbnail = await thumbnailData.ToBitmapAsync(overrideThumbnailSize);
             }
         }
     }

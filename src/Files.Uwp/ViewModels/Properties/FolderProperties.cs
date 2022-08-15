@@ -9,15 +9,17 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Foundation.Collections;
-using Windows.UI.Core;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 using Microsoft.UI.Dispatching;
 
 namespace Files.Uwp.ViewModels.Properties
 {
     internal class FolderProperties : BaseProperties
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         public ListedItem Item { get; }
 
         public FolderProperties(SelectedItemsPropertiesViewModel viewModel, CancellationTokenSource tokenSource,
@@ -62,8 +64,8 @@ namespace Files.Uwp.ViewModels.Properties
                     ViewModel.ShortcutItemArgumentsVisibility = false;
                     ViewModel.ShortcutItemOpenLinkCommand = new RelayCommand(async () =>
                     {
-                        await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(
-                            () => NavigationHelpers.OpenPathInNewTab(Path.GetDirectoryName(ViewModel.ShortcutItemPath)));
+                        await ThreadingService.ExecuteOnUiThreadAsync();
+                        await NavigationHelpers.OpenPathInNewTab(Path.GetDirectoryName(ViewModel.ShortcutItemPath));
                     }, () =>
                     {
                         return !string.IsNullOrWhiteSpace(ViewModel.ShortcutItemPath);

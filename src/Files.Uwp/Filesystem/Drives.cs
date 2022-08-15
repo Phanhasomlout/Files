@@ -4,7 +4,6 @@ using Files.Backend.Services.SizeProvider;
 using Files.Shared;
 using Files.Shared.Enums;
 using Files.Uwp.DataModels.NavigationControlItems;
-using CommunityToolkit.WinUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -12,13 +11,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Portable;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using DriveType = Files.Uwp.DataModels.NavigationControlItems.DriveType;
 using IO = System.IO;
+using Files.Backend.Services;
 
 namespace Files.Uwp.Filesystem
 {
@@ -26,6 +25,8 @@ namespace Files.Uwp.Filesystem
     {
         private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
         private readonly ISizeProvider folderSizeProvider = Ioc.Default.GetRequiredService<ISizeProvider>();
+
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
         private bool isDriveEnumInProgress;
         private DeviceWatcher watcher;
@@ -185,12 +186,10 @@ namespace Files.Uwp.Filesystem
                     DriveItem matchingDriveEjected = Drives.FirstOrDefault(x => x.DeviceID == deviceId);
                     if (rootModified && matchingDriveEjected is not null)
                     {
-                        _ = CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() =>
-                        {
-                            matchingDriveEjected.Root = rootModified.Result;
-                            matchingDriveEjected.Text = rootModified.Result.DisplayName;
-                            return matchingDriveEjected.UpdatePropertiesAsync();
-                        });
+                        await ThreadingService.ExecuteOnUiThreadAsync();
+                        matchingDriveEjected.Root = rootModified.Result;
+                        matchingDriveEjected.Text = rootModified.Result.DisplayName;
+                        _ = matchingDriveEjected.UpdatePropertiesAsync();
                     }
                     break;
             }

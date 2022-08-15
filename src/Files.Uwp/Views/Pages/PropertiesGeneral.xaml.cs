@@ -8,11 +8,15 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation.Collections;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.Views
 {
     public sealed partial class PropertiesGeneral : PropertiesTab
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         public PropertiesGeneral()
         {
             this.InitializeComponent();
@@ -37,11 +41,11 @@ namespace Files.Uwp.Views
                             { "drivename", drive.Path },
                             { "newlabel", ViewModel.ItemName }
                         });
-                        _ = CoreApplication.MainView.DispatcherQueue.EnqueueAsync(async () =>
-                        {
-                            await drive.UpdateLabelAsync();
-                            await AppInstance.FilesystemViewModel?.SetWorkingDirectoryAsync(drive.Path);
-                        });
+
+                        await ThreadingService.ExecuteOnUiThreadAsync();
+                        await drive.UpdateLabelAsync();
+                        await AppInstance.FilesystemViewModel?.SetWorkingDirectoryAsync(drive.Path);
+                        
                         return true;
                     }
                 }
@@ -60,10 +64,10 @@ namespace Files.Uwp.Views
                         if (renamed == ReturnResult.Success)
                         {
                             var newPath = Path.Combine(Path.GetDirectoryName(libraryPath), $"{newName}{ShellLibraryItem.EXTENSION}");
-                            _ = CoreApplication.MainView.DispatcherQueue.EnqueueAsync(async () =>
-                            {
-                                await AppInstance.FilesystemViewModel?.SetWorkingDirectoryAsync(newPath);
-                            });
+
+                            await ThreadingService.ExecuteOnUiThreadAsync();
+                            await AppInstance.FilesystemViewModel?.SetWorkingDirectoryAsync(newPath);
+
                             return true;
                         }
                     }
@@ -74,27 +78,28 @@ namespace Files.Uwp.Views
                 // Handle the visibility attribute for multiple files
                 if (AppInstance?.SlimContentPage?.ItemManipulationModel != null) // null on homepage
                 {
+                    await ThreadingService.ExecuteOnUiThreadAsync();
                     foreach (var fileOrFolder in combinedProps.List)
                     {
-                        await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => UIFilesystemHelpers.SetHiddenAttributeItem(fileOrFolder, ViewModel.IsHidden, AppInstance.SlimContentPage.ItemManipulationModel));
+                        UIFilesystemHelpers.SetHiddenAttributeItem(fileOrFolder, ViewModel.IsHidden, AppInstance.SlimContentPage.ItemManipulationModel);
                     }
                 }
                 return true;
             }
             else
             {
+                await ThreadingService.ExecuteOnUiThreadAsync();
+
                 // Handle the visibility attribute for a single file
                 if (AppInstance?.SlimContentPage?.ItemManipulationModel != null) // null on homepage
                 {
-                    await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => UIFilesystemHelpers.SetHiddenAttributeItem(item, ViewModel.IsHidden, AppInstance.SlimContentPage.ItemManipulationModel));
+                    UIFilesystemHelpers.SetHiddenAttributeItem(item, ViewModel.IsHidden, AppInstance.SlimContentPage.ItemManipulationModel);
                 }
 
                 ViewModel.ItemName = ItemFileName.Text; // Make sure ItemName is updated
                 if (!string.IsNullOrWhiteSpace(ViewModel.ItemName) && ViewModel.OriginalItemName != ViewModel.ItemName)
                 {
-                    return await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => UIFilesystemHelpers.RenameFileItemAsync(item,
-                          ViewModel.ItemName,
-                          AppInstance));
+                    return await UIFilesystemHelpers.RenameFileItemAsync(item, ViewModel.ItemName, AppInstance);
                 }
                 return true;
             }

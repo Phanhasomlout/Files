@@ -5,7 +5,6 @@ using Files.Uwp.DataModels.NavigationControlItems;
 using Files.Uwp.Filesystem;
 using Files.Uwp.Helpers;
 using Files.Uwp.ViewModels;
-using CommunityToolkit.WinUI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Storage;
+using Files.Backend.Services;
 
 namespace Files.Uwp.DataModels
 {
@@ -24,7 +23,7 @@ namespace Files.Uwp.DataModels
     {
         private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
         private SidebarPinnedController controller;
 
@@ -259,6 +258,8 @@ namespace Files.Uwp.DataModels
 
             if (res || (FilesystemResult)FolderHelpers.CheckFolderAccessWithWin32(path))
             {
+                await ThreadingService.ExecuteOnUiThreadAsync();
+
                 locationItem.IsInvalid = false;
                 if (res)
                 {
@@ -268,20 +269,20 @@ namespace Files.Uwp.DataModels
                         iconData = await FileThumbnailHelper.LoadIconFromStorageItemAsync(res.Result, 24u, Windows.Storage.FileProperties.ThumbnailMode.SingleItem);
                     }
                     locationItem.IconData = iconData;
-                    locationItem.Icon = await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => locationItem.IconData.ToBitmapAsync());
+                    locationItem.Icon = await locationItem.IconData.ToBitmapAsync();
                 }
                 if (locationItem.IconData == null)
                 {
                     locationItem.IconData = await FileThumbnailHelper.LoadIconWithoutOverlayAsync(path, 24u);
                     if (locationItem.IconData != null)
                     {
-                        locationItem.Icon = await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => locationItem.IconData.ToBitmapAsync());
+                        locationItem.Icon = await locationItem.IconData.ToBitmapAsync();
                     }
                 }
             }
             else
             {
-                locationItem.Icon = await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => UIHelpers.GetIconResource(Constants.ImageRes.Folder));
+                locationItem.Icon = await UIHelpers.GetIconResource(Constants.ImageRes.Folder);
                 locationItem.IsInvalid = true;
                 Debug.WriteLine($"Pinned item was invalid {res.ErrorCode}, item: {path}");
             }

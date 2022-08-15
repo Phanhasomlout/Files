@@ -16,11 +16,15 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using static Files.Uwp.Views.PropertiesCustomization;
 using Files.Shared.Extensions;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.Views
 {
     public sealed partial class CustomFolderIcons : Page
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         private string selectedItemPath;
         private string iconResourceItemPath;
         private IShellPage appInstance;
@@ -104,10 +108,8 @@ namespace Files.Uwp.Views
                 SetCustomFolderIcon(selectedItemPath, iconResourceItemPath, selectedIconInfo.Index);
             if (await setIconTask)
             {
-                await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() =>
-                {
-                    appInstance?.FilesystemViewModel?.RefreshItems(null);
-                });
+                await ThreadingService.ExecuteOnUiThreadAsync();
+                appInstance?.FilesystemViewModel?.RefreshItems(null);
             }
         }
 
@@ -120,14 +122,10 @@ namespace Files.Uwp.Views
                 SetCustomFolderIcon(selectedItemPath, null);
             if (await setIconTask)
             {
-                await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() =>
+                await ThreadingService.ExecuteOnUiThreadAsync();
+                appInstance?.FilesystemViewModel?.RefreshItems(null, async () =>
                 {
-                    appInstance?.FilesystemViewModel?.RefreshItems(null, async () =>
-                    {
-                        await /*
-                TODO UA306_A2: UWP CoreDispatcher : Windows.UI.Core.CoreDispatcher is no longer supported. Use DispatcherQueue instead. Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/threading
-            */Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => RestoreDefaultButton.IsEnabled = true);
-                    });
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => RestoreDefaultButton.IsEnabled = true);
                 });
             }
         }

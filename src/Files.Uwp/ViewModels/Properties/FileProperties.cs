@@ -12,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Devices.Geolocation;
 using Windows.Foundation.Collections;
 using Windows.Security.Cryptography;
@@ -20,14 +19,17 @@ using Windows.Security.Cryptography.Core;
 using Windows.Services.Maps;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Core;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Dispatching;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Files.Backend.Services;
 
 namespace Files.Uwp.ViewModels.Properties
 {
     public class FileProperties : BaseProperties
     {
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
+
         public ListedItem Item { get; }
 
         private IProgress<float> hashProgress;
@@ -89,8 +91,8 @@ namespace Files.Uwp.ViewModels.Properties
                         }
                         else
                         {
-                            await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(
-                                () => NavigationHelpers.OpenPathInNewTab(Path.GetDirectoryName(ViewModel.ShortcutItemPath)));
+                            await ThreadingService.ExecuteOnUiThreadAsync();
+                            await NavigationHelpers.OpenPathInNewTab(Path.GetDirectoryName(ViewModel.ShortcutItemPath));
                         }
                     }, () =>
                     {

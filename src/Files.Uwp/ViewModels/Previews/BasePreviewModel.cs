@@ -15,12 +15,15 @@ using Windows.ApplicationModel.Core;
 using Windows.Storage.FileProperties;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Files.Backend.Services;
 
 namespace Files.Uwp.ViewModels.Previews
 {
     public abstract class BasePreviewModel : ObservableObject
     {
-        private readonly IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
+
+        private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
         public ListedItem Item { get; }
 
@@ -67,7 +70,7 @@ namespace Files.Uwp.ViewModels.Previews
             await Task.Run(async () =>
             {
                 DetailsFromPreview = await LoadPreviewAndDetailsAsync();
-                if (!userSettingsService.PaneSettingsService.ShowPreviewOnly)
+                if (!UserSettingsService.PaneSettingsService.ShowPreviewOnly)
                 {
                     // Add the details from the preview function, then the system file properties
                     DetailsFromPreview?.ForEach(i => detailsFull.Add(i));
@@ -93,13 +96,15 @@ namespace Files.Uwp.ViewModels.Previews
         {
             var iconData = await FileThumbnailHelper.LoadIconFromStorageItemAsync(Item.ItemFile, 400, ThumbnailMode.DocumentsView);
             iconData ??= await FileThumbnailHelper.LoadIconWithoutOverlayAsync(Item.ItemPath, 400);
+
+            await ThreadingService.ExecuteOnUiThreadAsync();
             if (iconData is not null)
             {
-                await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(async () => FileImage = await iconData.ToBitmapAsync());
+                FileImage = await iconData.ToBitmapAsync();
             }
             else
             {
-                FileImage ??= await CoreApplication.MainView.DispatcherQueue.EnqueueAsync(() => new BitmapImage());
+                FileImage ??= new BitmapImage();
             }
 
             return new List<FileProperty>();
@@ -131,7 +136,7 @@ namespace Files.Uwp.ViewModels.Previews
             );
 
             // adds the value for the file tag
-            if (userSettingsService.PreferencesSettingsService.AreFileTagsEnabled)
+            if (UserSettingsService.PreferencesSettingsService.AreFileTagsEnabled)
             {
                 list.FirstOrDefault(x => x.ID is "filetag").Value = 
                     Item.FileTagsUI is not null ? string.Join(',', Item.FileTagsUI.Select(x => x.TagName)) : null;
