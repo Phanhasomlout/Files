@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.WinUI;
 using Files.Sdk.Services;
 using Files.Sdk.Services.Settings;
 using Files.Sdk.Services.SizeProvider;
@@ -20,7 +21,9 @@ using Files.Uwp.Helpers.FileListCache;
 using Files.Uwp.UserControls;
 using Files.Uwp.ViewModels.Previews;
 using FluentFTP;
-using CommunityToolkit.WinUI;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -40,14 +43,10 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
-using Windows.System;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Imaging;
-using static Files.Backend.Helpers.NativeFindStorageItemHelper;
+using static Files.Sdk.Helpers.NativeFindStorageItemHelper;
 using static Files.Uwp.Helpers.NativeDirectoryChangesHelper;
-using FileAttributes = System.IO.FileAttributes;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
+using FileAttributes = System.IO.FileAttributes;
 
 namespace Files.Uwp.ViewModels
 {

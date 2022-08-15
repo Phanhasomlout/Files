@@ -1,18 +1,23 @@
-using Microsoft.UI.Xaml;
-using System;
-using Windows.ApplicationModel;
 using Files.Sdk.Services;
-using Files.Uwp.Filesystem.FilesystemHistory;
-using Files.Uwp.ViewModels;
-using Files.Uwp.Helpers;
+using Files.Sdk.Services.Settings;
+using Files.Shared;
+using Files.Shared.Services.DateTimeFormatter;
 using Files.Uwp.Controllers;
 using Files.Uwp.Filesystem;
-using Files.Shared;
 using Files.Uwp.Filesystem.Cloud;
+using Files.Uwp.Filesystem.FilesystemHistory;
+using Files.Uwp.Helpers;
 using Files.Uwp.ServicesImplementation;
+using Files.Uwp.ServicesImplementation.DateTimeFormatter;
+using Files.Uwp.ServicesImplementation.Settings;
+using Files.Uwp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
+using Microsoft.UI.Xaml;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using ExceptionHelpers = Files.Uwp.Helpers.ExceptionHelpers;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -30,7 +35,7 @@ namespace Files.Uwp
         // TODO: Replace Window with _window
         public static MainWindow Window { get; private set; }
 
-        private IServiceProvider Services { get; set; }
+        private IServiceProvider ServiceProvider { get; set; }
 
         private static bool ShowErrorNotification = false;
         private static string OutputPath = null;
@@ -82,6 +87,10 @@ namespace Files.Uwp
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
             _ = activatedEventArgs;
 
+            // Configure IoC
+            ServiceProvider = ConfigureServices();
+            Ioc.Default.ConfigureServices(ServiceProvider);
+
             // Initialize MainWindow here
             Window = new MainWindow();
             Window.Activate();
@@ -101,13 +110,50 @@ namespace Files.Uwp
 
         private IServiceProvider ConfigureServices()
         {
-            var serviceCollection = new ServiceCollection();
+            var services = new ServiceCollection();
 
-            serviceCollection
+            services
+                // TODO: Loggers:
+
+                // Settings:
+                // Base IUserSettingsService as parent settings store (to get ISettingsSharingContext from)
+                .AddSingleton<IUserSettingsService, UserSettingsService>()
+                // Children settings (from IUserSettingsService)
+                .AddSingleton<IMultitaskingSettingsService, MultitaskingSettingsService>((sp) => new MultitaskingSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                .AddSingleton<IWidgetsSettingsService, WidgetsSettingsService>((sp) => new WidgetsSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                .AddSingleton<IAppearanceSettingsService, AppearanceSettingsService>((sp) => new AppearanceSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                .AddSingleton<IPreferencesSettingsService, PreferencesSettingsService>((sp) => new PreferencesSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                .AddSingleton<IPaneSettingsService, PaneSettingsService>((sp) => new PaneSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                .AddSingleton<ILayoutSettingsService, LayoutSettingsService>((sp) => new LayoutSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
+                // Settings not related to IUserSettingsService:
+                .AddSingleton<IFileTagsSettingsService, FileTagsSettingsService>()
+                .AddSingleton<IBundlesSettingsService, BundlesSettingsService>()
+
+                // Other services
+                .AddSingleton(Logger)
                 .AddSingleton<IApplicationService, ApplicationService>()
-                .AddSingleton<IThreadingService, ThreadingService>();
+                .AddSingleton<IThreadingService, ThreadingService>()
+                .AddSingleton<IDialogService, DialogService>()
+                .AddSingleton<IImagingService, ImagingService>()
+                .AddSingleton<IThreadingService, ThreadingService>()
+                .AddSingleton<ILocalizationService, LocalizationService>()
+#if SIDELOAD
+                .AddSingleton<IUpdateServiceDeprecated, SideloadUpdateService>()
+#else
+                .AddSingleton<IUpdateServiceDeprecated, UpdateService>()
+#endif
+                .AddSingleton<IDateTimeFormatterFactory, DateTimeFormatterFactory>()
+                .AddSingleton<IDateTimeFormatter, UserDateTimeFormatter>()
 
-            return serviceCollection.BuildServiceProvider();
+                // TODO(i): FileSystem operations:
+                // (IFilesystemHelpersService, IFilesystemOperationsService)
+                // (IStorageEnumerator, IFallbackStorageEnumerator)
+                .AddSingleton<IFolderSizeProvider, FolderSizeProvider>()
+
+                ; // End of service configuration
+
+
+            return services.BuildServiceProvider();
         }
 
         #region Exception Handling

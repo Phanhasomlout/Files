@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vc="using:Files.Uwp.ValueConverters"
-    xmlns:vm="using:Files.Backend.ViewModels.FileTags"
+    xmlns:vm="using:Files.Sdk.ViewModels.FileTags"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">

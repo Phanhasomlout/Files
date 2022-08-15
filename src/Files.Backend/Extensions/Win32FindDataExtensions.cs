@@ -1,4 +1,4 @@
-﻿using static Files.Backend.Helpers.NativeFindStorageItemHelper;
+﻿using static Files.Sdk.Helpers.NativeFindStorageItemHelper;
 
 namespace Files.Sdk.Extensions
 {
