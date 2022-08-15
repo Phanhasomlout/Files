@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Files.Shared.Utils;
 
 namespace Files.Backend.Services
 {
+    /// <summary>
+    /// A service to manage current thread execution.
+    /// </summary>
     public interface IThreadingService
     {
-        Task ExecuteOnUiThreadAsync(Action action);
+        /// <summary>
+        /// Changes current thread to execute on UI thread.
+        /// </summary>
+        /// <returns>A <see cref="IAwaitable"/> that represents the asynchronous operation.</returns>
+        IAwaitable ExecuteOnUiThreadAsync();
 
-        Task<TResult?> ExecuteOnUiThreadAsync<TResult>(Func<TResult?> func);
+        /// <summary>
+        /// Executes specified <paramref name="action"/> on UI thread.
+        /// </summary>
+        /// <param name="action">Action to execute.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation.</returns>
+        Task ExecuteOnUiThreadAsync(Action action);
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml;
-using Microsoft.Windows.AppLifecycle;
 using System;
 using Windows.ApplicationModel;
+using Files.Backend.Services;
 using Files.Uwp.Filesystem.FilesystemHistory;
 using Files.Uwp.ViewModels;
 using Files.Uwp.Helpers;
@@ -9,6 +9,11 @@ using Files.Uwp.Controllers;
 using Files.Uwp.Filesystem;
 using Files.Shared;
 using Files.Uwp.Filesystem.Cloud;
+using Files.Uwp.ServicesImplementation;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using ExceptionHelpers = Files.Uwp.Helpers.ExceptionHelpers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -20,6 +25,13 @@ namespace Files.Uwp
     /// </summary>
     public partial class App : Application
     {
+        // private Window? _window;
+
+        // TODO: Replace Window with _window
+        public static MainWindow Window { get; private set; }
+
+        private IServiceProvider Services { get; set; }
+
         private static bool ShowErrorNotification = false;
         private static string OutputPath = null;
 
@@ -48,7 +60,6 @@ namespace Files.Uwp
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
-        public IServiceProvider Services { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -66,30 +77,10 @@ namespace Files.Uwp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs e)
         {
-            // TODO This code defaults the app to a single instance app. If you need multi instance app, remove this part.
-            // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#single-instancing-in-applicationonlaunched
-            // If this is the first instance launched, then register it as the "main" instance.
-            // If this isn't the first instance launched, then "main" will already be registered,
-            // so retrieve it.
-            var mainInstance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("main");
-            var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
-
-            // If the instance that's executing the OnLaunched handler right now
-            // isn't the "main" instance.
-            if (!mainInstance.IsCurrent)
-            {
-                // Redirect the activation (and args) to the "main" instance, and exit.
-                await mainInstance.RedirectActivationToAsync(activatedEventArgs);
-                System.Diagnostics.Process.GetCurrentProcess().Kill();
-                return;
-            }
-
             // TODO This code handles app activation types. Add any other activation kinds you want to handle.
             // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#file-type-association
-            if (activatedEventArgs.Kind == ExtendedActivationKind.File)
-            {
-                OnFileActivated(activatedEventArgs);
-            }
+            var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
+            _ = activatedEventArgs;
 
             // Initialize MainWindow here
             Window = new MainWindow();
@@ -97,14 +88,57 @@ namespace Files.Uwp
             WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
         }
 
-        // TODO This is an example method for the case when app is activated through a file.
-        // Feel free to remove this if you do not need this.
-        public void OnFileActivated(AppActivationArguments activatedEventArgs)
+        private void EnsureEarlyApp()
         {
+            // Configure exception handlers
+            UnhandledException += App_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
+            // Start AppCenter
+            // TODO: Start AppCenter
         }
 
-        public static MainWindow Window { get; private set; }
+        private IServiceProvider ConfigureServices()
+        {
+            var serviceCollection = new ServiceCollection();
+
+            serviceCollection
+                .AddSingleton<IThreadingService, ThreadingService>();
+
+            return serviceCollection.BuildServiceProvider();
+        }
+
+        #region Exception Handling
+
+        private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+        {
+            LogException(e.Exception);
+        }
+
+        private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            LogException(e.Exception);
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+        {
+            LogException(e.ExceptionObject as Exception);
+        }
+
+        private void LogException(Exception? ex)
+        {
+            var formattedException = ExceptionHelpers.FormatException(ex);
+
+            Debug.WriteLine(formattedException);
+            Debugger.Break(); // Please check "Output Window" for exception details (View -> Output Window) (Ctr + Alt + O)
+
+#if !DEBUG
+            ExceptionHelpers.LogExceptionToFile(formattedException);
+#endif
+        }
+
+        #endregion
 
         public static IntPtr WindowHandle { get; private set; }
     }

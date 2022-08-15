@@ -2,6 +2,13 @@ namespace Files.Uwp
 {
     public static class Constants
     {
+        public static class Application
+        {
+            public const string EXCEPTION_BLOCK_DATE_FORMAT = "dd.MM.yyyy HH_mm_ss";
+
+            public const string EXCEPTIONLOG_FILENAME = "files_exceptionlog.log";
+        }
+
         public static class AdaptiveLayout
         {
             public const float ExtraLargeThreshold = 85.0f;
