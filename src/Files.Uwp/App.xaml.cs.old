@@ -519,7 +519,7 @@ namespace Files.Uwp
                         break;
 
                     case ParsedCommandType.TagFiles:
-                        var tagService = Ioc.Default.GetService<IFileTagsSettingsService>();
+                        var tagService = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
                         var tag = tagService.GetTagsByName(command.Payload).FirstOrDefault();
                         foreach (var file in command.Args.Skip(1))
                         {
@@ -629,8 +629,8 @@ namespace Files.Uwp
 
         public static void SaveSessionTabs() // Enumerates through all tabs and gets the Path property and saves it to AppSettings.LastSessionPages
         {
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
-            IBundlesSettingsService bundlesSettingsService = Ioc.Default.GetService<IBundlesSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+            IBundlesSettingsService bundlesSettingsService = Ioc.Default.GetRequiredService<IBundlesSettingsService>();
 
             if (bundlesSettingsService != null)
             {

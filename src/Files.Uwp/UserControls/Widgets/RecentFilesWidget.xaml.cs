@@ -27,7 +27,7 @@ namespace Files.Uwp.UserControls.Widgets
 {
     public sealed partial class RecentFilesWidget : UserControl, IWidgetItemModel
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public delegate void RecentFilesOpenLocationInvokedEventHandler(object sender, PathNavigationEventArgs e);
 

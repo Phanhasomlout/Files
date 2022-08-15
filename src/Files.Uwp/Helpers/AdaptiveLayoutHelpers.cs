@@ -14,7 +14,7 @@ namespace Files.Uwp.Helpers
     {
         public static bool PredictLayoutMode(FolderSettingsViewModel folderSettings, string path, IList<ListedItem> filesAndFolders)
         {
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
             if (userSettingsService.PreferencesSettingsService.AreLayoutPreferencesPerFolder
                 && folderSettings.IsAdaptiveLayoutEnabled

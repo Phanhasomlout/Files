@@ -26,7 +26,7 @@ namespace Files.Uwp.Filesystem.StorageEnumerators
 {
     public static class Win32StorageEnumerator
     {
-        private static readonly ISizeProvider folderSizeProvider = Ioc.Default.GetService<ISizeProvider>();
+        private static readonly ISizeProvider folderSizeProvider = Ioc.Default.GetRequiredService<ISizeProvider>();
 
         private static readonly string folderTypeTextLocalized = "FileFolderListItem".GetLocalized();
         private static readonly IFileListCache fileListCache = FileListCacheController.GetInstance();
@@ -47,7 +47,7 @@ namespace Files.Uwp.Filesystem.StorageEnumerators
             var hasNextFile = false;
             var count = 0;
 
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
             bool showFolderSize = userSettingsService.PreferencesSettingsService.ShowFolderSize;
 
             do

@@ -101,7 +101,7 @@ namespace Files.Uwp.ServicesImplementation.Settings
         private TSettingsService GetSettingsService<TSettingsService>(ref TSettingsService settingsServiceMember)
             where TSettingsService : class, IBaseSettingsService
         {
-            settingsServiceMember ??= Ioc.Default.GetService<TSettingsService>();
+            settingsServiceMember ??= Ioc.Default.GetRequiredService<TSettingsService>();
             return settingsServiceMember;
         }
 

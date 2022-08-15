@@ -6,7 +6,7 @@ namespace Files.Uwp.ViewModels.SettingsViewModels
 {
     public class MultitaskingViewModel : ObservableObject
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public bool IsVerticalTabFlyoutEnabled
         {

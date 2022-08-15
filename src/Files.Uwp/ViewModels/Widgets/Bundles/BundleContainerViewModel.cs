@@ -31,7 +31,7 @@ namespace Files.Uwp.ViewModels.Widgets.Bundles
     {
         #region Singleton
 
-        private IBundlesSettingsService BundlesSettingsService { get; } = Ioc.Default.GetService<IBundlesSettingsService>();
+        private IBundlesSettingsService BundlesSettingsService { get; } = Ioc.Default.GetRequiredService<IBundlesSettingsService>();
 
         #endregion Singleton
 

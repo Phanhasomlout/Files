@@ -44,7 +44,7 @@ namespace Files.Uwp.ViewModels.Widgets.Bundles
 
         #region Properties
 
-        private IBundlesSettingsService BundlesSettingsService { get; } = Ioc.Default.GetService<IBundlesSettingsService>();
+        private IBundlesSettingsService BundlesSettingsService { get; } = Ioc.Default.GetRequiredService<IBundlesSettingsService>();
 
         /// <summary>
         /// Collection of all bundles

@@ -32,7 +32,7 @@ namespace Files.Uwp.UserControls
 {
     public sealed partial class SidebarControl : Microsoft.UI.Xaml.Controls.NavigationView, INotifyPropertyChanged
     {
-        public IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        public IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public delegate void SidebarItemInvokedEventHandler(object sender, SidebarItemInvokedEventArgs e);
 

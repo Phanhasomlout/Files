@@ -15,8 +15,8 @@ namespace Files.Uwp.ViewModels.Previews
 {
     public class FolderPreviewViewModel
     {
-        private readonly IPreferencesSettingsService preferencesSettingsService = Ioc.Default.GetService<IPreferencesSettingsService>();
-        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetService<IDateTimeFormatter>();
+        private readonly IPreferencesSettingsService preferencesSettingsService = Ioc.Default.GetRequiredService<IPreferencesSettingsService>();
+        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetRequiredService<IDateTimeFormatter>();
 
         public ListedItem Item { get; }
 

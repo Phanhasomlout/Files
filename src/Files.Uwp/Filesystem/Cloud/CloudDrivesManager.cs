@@ -15,8 +15,8 @@ namespace Files.Uwp.Filesystem.Cloud
 {
     public class CloudDrivesManager
     {
-        private readonly ILogger logger = Ioc.Default.GetService<ILogger>();
-        private readonly ICloudDetector detector = Ioc.Default.GetService<ICloudDetector>();
+        private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
+        private readonly ICloudDetector detector = Ioc.Default.GetRequiredService<ICloudDetector>();
 
         public EventHandler<NotifyCollectionChangedEventArgs> DataChanged;
 

@@ -18,7 +18,7 @@ namespace Files.Uwp.Filesystem
 {
     public class RecentItemsManager : IDisposable
     {
-        private readonly ILogger logger = Ioc.Default.GetService<ILogger>();
+        private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
         private const string QuickAccessGuid = "::{679f85cb-0220-4080-b29b-5540cc05aab6}";
 
         public EventHandler<NotifyCollectionChangedEventArgs> RecentFilesChanged;

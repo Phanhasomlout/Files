@@ -12,7 +12,7 @@ namespace Files.Uwp.Helpers
 {
     public static class GroupingHelper
     {
-        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetService<IDateTimeFormatter>();
+        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetRequiredService<IDateTimeFormatter>();
 
         public static Func<ListedItem, string> GetItemGroupKeySelector(GroupOption option)
         {

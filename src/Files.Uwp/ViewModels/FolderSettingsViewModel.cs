@@ -25,7 +25,7 @@ namespace Files.Uwp.ViewModels
 
         public event EventHandler<LayoutPreferenceEventArgs> LayoutPreferencesUpdateRequired;
 
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public FolderSettingsViewModel()
         {
@@ -309,7 +309,7 @@ namespace Files.Uwp.ViewModels
 
         private static LayoutPreferences GetLayoutPreferencesForPath(string folderPath)
         {
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
             if (userSettingsService.PreferencesSettingsService.AreLayoutPreferencesPerFolder)
             {
                 folderPath = folderPath.TrimPath();
@@ -324,7 +324,7 @@ namespace Files.Uwp.ViewModels
 
         public static void SetLayoutPreferencesForPath(string folderPath, LayoutPreferences prefs)
         {
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
             if (userSettingsService.PreferencesSettingsService.AreLayoutPreferencesPerFolder)
             {
@@ -386,7 +386,7 @@ namespace Files.Uwp.ViewModels
                 return LayoutPreferences.DefaultLayoutPreferences;
             }
 
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
             if (folderPath == CommonPaths.DownloadsPath)
             {

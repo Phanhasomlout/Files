@@ -14,7 +14,7 @@ namespace Files.Uwp.UserControls.Menus
     public sealed partial class FileTagsContextMenu : UserControl
     {
         private IFileTagsSettingsService FileTagsSettingsService { get; } =
-            Ioc.Default.GetService<IFileTagsSettingsService>();
+            Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
 
         public FileTagsContextMenu()
         {

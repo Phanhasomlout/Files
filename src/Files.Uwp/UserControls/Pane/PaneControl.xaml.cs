@@ -10,7 +10,7 @@ namespace Files.Uwp.UserControls
     {
         private PaneContents content;
 
-        private IPaneSettingsService PaneSettingsService { get; } = Ioc.Default.GetService<IPaneSettingsService>();
+        private IPaneSettingsService PaneSettingsService { get; } = Ioc.Default.GetRequiredService<IPaneSettingsService>();
 
         public PanePositions Position => Panel.Content is IPane pane ? pane.Position : PanePositions.Right;
 

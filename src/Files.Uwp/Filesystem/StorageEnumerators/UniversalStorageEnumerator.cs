@@ -31,7 +31,7 @@ namespace Files.Uwp.Filesystem.StorageEnumerators
             uint count = 0;
             var firstRound = true;
 
-            IUserSettingsService userSettingsService = Ioc.Default.GetService<IUserSettingsService>();
+            IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
             while (true)
             {

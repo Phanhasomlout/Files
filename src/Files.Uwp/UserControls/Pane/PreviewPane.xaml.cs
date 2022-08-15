@@ -13,7 +13,7 @@ namespace Files.Uwp.UserControls
     {
         public PanePositions Position { get; private set; } = PanePositions.None;
 
-        private IPaneSettingsService PaneSettingsService { get; } = Ioc.Default.GetService<IPaneSettingsService>();
+        private IPaneSettingsService PaneSettingsService { get; } = Ioc.Default.GetRequiredService<IPaneSettingsService>();
 
         private PreviewPaneViewModel ViewModel => App.PreviewPaneViewModel;
 

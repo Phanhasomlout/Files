@@ -47,9 +47,9 @@ namespace Files.Uwp
     {
         private readonly DispatcherQueueTimer jumpTimer;
 
-        protected IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        protected IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-        protected IFileTagsSettingsService FileTagsSettingsService { get; } = Ioc.Default.GetService<IFileTagsSettingsService>();
+        protected IFileTagsSettingsService FileTagsSettingsService { get; } = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
 
         protected Task<NamedPipeAsAppServiceConnection> Connection => AppServiceConnectionHelper.Instance;
 

@@ -7,7 +7,7 @@ namespace Files.Uwp.Converters
 {
     internal class DateTimeOffsetToString : IValueConverter
     {
-        private static readonly IDateTimeFormatter formatter = Ioc.Default.GetService<IDateTimeFormatter>();
+        private static readonly IDateTimeFormatter formatter = Ioc.Default.GetRequiredService<IDateTimeFormatter>();
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {

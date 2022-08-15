@@ -13,7 +13,7 @@ namespace Files.Uwp.UserControls.Widgets
 {
     public sealed partial class BundlesWidget : UserControl, IWidgetItemModel, IDisposable
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public BundlesViewModel ViewModel
         {

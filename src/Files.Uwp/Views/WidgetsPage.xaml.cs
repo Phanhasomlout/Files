@@ -20,9 +20,9 @@ namespace Files.Uwp.Views
 {
     public sealed partial class WidgetsPage : Page, IDisposable
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-        private IWidgetsSettingsService WidgetsSettingsService { get; } = Ioc.Default.GetService<IWidgetsSettingsService>();
+        private IWidgetsSettingsService WidgetsSettingsService { get; } = Ioc.Default.GetRequiredService<IWidgetsSettingsService>();
 
         private IShellPage AppInstance = null;
         public FolderSettingsViewModel FolderSettings => AppInstance?.InstanceViewModel.FolderSettings;

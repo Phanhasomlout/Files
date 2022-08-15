@@ -24,8 +24,8 @@ namespace Files.Uwp.Filesystem
 {
     public class DrivesManager : ObservableObject
     {
-        private readonly ILogger logger = Ioc.Default.GetService<ILogger>();
-        private readonly ISizeProvider folderSizeProvider = Ioc.Default.GetService<ISizeProvider>();
+        private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
+        private readonly ISizeProvider folderSizeProvider = Ioc.Default.GetRequiredService<ISizeProvider>();
 
         private bool isDriveEnumInProgress;
         private DeviceWatcher watcher;

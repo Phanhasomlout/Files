@@ -7,7 +7,7 @@ namespace Files.Uwp.Helpers.LayoutPreferences
 {
     public class LayoutPreferences
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         public SortOption DirectorySortOption;
         public SortDirection DirectorySortDirection;

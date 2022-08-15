@@ -30,7 +30,7 @@ namespace Files.Uwp.ViewModels.SettingsViewModels
 {
     public class PreferencesViewModel : ObservableObject, IDisposable
     {
-        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetService<IUserSettingsService>();
+        private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
         private int selectedLanguageIndex = App.AppSettings.DefaultLanguages.IndexOf(App.AppSettings.DefaultLanguage);
         private Terminal selectedTerminal = App.TerminalController.Model.GetDefaultTerminal();
@@ -671,7 +671,7 @@ namespace Files.Uwp.ViewModels.SettingsViewModels
 
         public DateFormatItem(TimeStyle style, DateTimeOffset sampleDate1, DateTimeOffset sampleDate2)
         {
-            var factory = Ioc.Default.GetService<IDateTimeFormatterFactory>();
+            var factory = Ioc.Default.GetRequiredService<IDateTimeFormatterFactory>();
             var formatter = factory.GetDateTimeFormatter(style);
 
             Label = formatter.Name;

@@ -12,8 +12,8 @@ namespace Files.Uwp.Filesystem
 {
     public class FileTagsManager
     {
-        private readonly ILogger logger = Ioc.Default.GetService<ILogger>();
-        private readonly IFileTagsSettingsService fileTagsSettingsService = Ioc.Default.GetService<IFileTagsSettingsService>();
+        private readonly ILogger logger = Ioc.Default.GetRequiredService<ILogger>();
+        private readonly IFileTagsSettingsService fileTagsSettingsService = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
 
         public EventHandler<NotifyCollectionChangedEventArgs> DataChanged;
 

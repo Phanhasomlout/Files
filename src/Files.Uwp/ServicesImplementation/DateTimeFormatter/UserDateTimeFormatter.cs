@@ -26,7 +26,7 @@ namespace Files.Uwp.ServicesImplementation.DateTimeFormatter
         private void Update()
         {
             var timeStyle = App.AppSettings.DisplayedTimeStyle;
-            var factory = Ioc.Default.GetService<IDateTimeFormatterFactory>();
+            var factory = Ioc.Default.GetRequiredService<IDateTimeFormatterFactory>();
             formatter = factory.GetDateTimeFormatter(timeStyle);
         }
 

@@ -18,7 +18,7 @@ namespace Files.Uwp.ViewModels.Properties
 {
     public abstract class BaseProperties
     {
-        protected static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetService<IDateTimeFormatter>();
+        protected static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetRequiredService<IDateTimeFormatter>();
 
         public IShellPage AppInstance { get; set; } = null;
         public SelectedItemsPropertiesViewModel ViewModel { get; set; }

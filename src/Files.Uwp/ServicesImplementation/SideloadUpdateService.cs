@@ -32,7 +32,7 @@ namespace Files.Uwp.ServicesImplementation
 
         private const string TemporaryUpdatePackageName = "UpdatePackage.msix";
 
-        private ILogger Logger { get; } = Ioc.Default.GetService<ILogger>();
+        private ILogger Logger { get; } = Ioc.Default.GetRequiredService<ILogger>();
 
         private string PackageName { get; } = Package.Current.Id.Name;
 

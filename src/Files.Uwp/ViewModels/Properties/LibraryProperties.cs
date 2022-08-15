@@ -16,7 +16,7 @@ namespace Files.Uwp.ViewModels.Properties
 {
     internal class LibraryProperties : BaseProperties
     {
-        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetService<IDateTimeFormatter>();
+        private static readonly IDateTimeFormatter dateTimeFormatter = Ioc.Default.GetRequiredService<IDateTimeFormatter>();
 
         public LibraryItem Library { get; private set; }
 
